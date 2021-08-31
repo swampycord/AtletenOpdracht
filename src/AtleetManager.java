@@ -73,8 +73,8 @@ public class AtleetManager {
 
 		int minDay = (int) LocalDate.of(1990, 1, 1).toEpochDay();
 		int maxDay = (int) LocalDate.of(2005, 12, 31).toEpochDay();
-
-		for (int i = 0; i < 50; i++) {
+		int i = 0;
+		while (i < 50) {
 			int randomVoorNaamIndex = random.nextInt(voorNamen.length);
 			int randomAchterNaamIndex = random.nextInt(achterNamen.length);
 			int randomSportTypeIndex = random.nextInt(sportLijst.length);
@@ -86,6 +86,7 @@ public class AtleetManager {
 			Sport randomSportType = sportLijst[randomSportTypeIndex];
 
 			lijst[i] = new AtleetManager(randomVoorNaam, randomAchterNaam, randomBirthDate, randomSportType);
+			i++;
 
 		}
 		return lijst;
@@ -106,25 +107,22 @@ public class AtleetManager {
 		LocalDate eersteJaar = LocalDate.of(jaar1, 1, 1);
 		LocalDate tweedeJaar = LocalDate.of(jaar2, 12, 31);
 
-		for (int i = 0; i < recordGenerator().length; i++) {
-			if (voorNaam == null && sportCategorie == null && maxLeefTijd == 0 && kiesMaand == null && minLeefTijd == 0
-					&& jaar1 == 0 && jaar2 == 0
-					|| (lijst[i].voorNaam.equals(voorNaam) || lijst[i].sportCategorie.equals(sportCategorie)
-							|| lijst[i].geboorteDatum.isAfter(gekozenLeeftijd)
-							|| lijst[i].geboorteDatum.getMonth() == kiesMaand
-							|| (lijst[i].geboorteDatum.isAfter(gekozenLeeftijd)
-									&& (lijst[i].geboorteDatum.isBefore(gekozenLeeftijd2)))
-							|| (lijst[i].geboorteDatum.isAfter(eersteJaar)
-									&& lijst[i].geboorteDatum.isBefore(tweedeJaar)))) {
+		for (AtleetManager atleet : recordGenerator()) {
+			String printOut = voorNaam == null && sportCategorie == null && maxLeefTijd == 0 && kiesMaand == null
+					&& minLeefTijd == 0 && jaar1 == 0 && jaar2 == 0
+					|| (atleet.voorNaam.equals(voorNaam) || atleet.sportCategorie.equals(sportCategorie)
+							|| atleet.geboorteDatum.isAfter(gekozenLeeftijd)
+							|| atleet.geboorteDatum.getMonth() == kiesMaand
+							|| (atleet.geboorteDatum.isAfter(gekozenLeeftijd)
+									&& (atleet.geboorteDatum.isBefore(gekozenLeeftijd2)))
+							|| (atleet.geboorteDatum.isAfter(eersteJaar) && atleet.geboorteDatum.isBefore(tweedeJaar)))
+									? "Voornaam 	: " + atleet.voorNaam + "\nAchernaam	: " + atleet.achterNaam
+											+ "\nGeboorteDatum	: " + atleet.geboorteDatum.getDayOfMonth() + "-"
+											+ atleet.geboorteDatum.getMonth() + "-" + atleet.geboorteDatum.getYear()
+											+ "\nSport Categorie	: " + atleet.sportCategorie + "\n\n"
+									: "Does not exist.";
 
-				System.out.println("Voornaam	: " + lijst[i].voorNaam);
-				System.out.println("Achernaam	: " + lijst[i].achterNaam);
-				System.out.println("GeboorteDatum	: " + lijst[i].geboorteDatum.getDayOfMonth() + " "
-						+ lijst[i].geboorteDatum.getMonth() + " " + lijst[i].geboorteDatum.getYear());
-				System.out.println("Sport Categorie	: " + lijst[i].sportCategorie);
-				System.out.println();
-			}
-
+			System.out.println(printOut);
 		}
 
 	}

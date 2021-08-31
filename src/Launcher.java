@@ -49,6 +49,6 @@ public class Launcher {
 
 		// 6) Druk de geboortedatum af in de Europese notatie 1 January 2002 (en niet de
 		// Amerikaanse 2002-01-01)
-//		 test.zoek();
+		 test.zoek();
 	}
 }
